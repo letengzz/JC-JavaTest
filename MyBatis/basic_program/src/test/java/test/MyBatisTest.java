@@ -11,7 +11,7 @@ import java.io.InputStream;
 
 public class MyBatisTest {
     @Test
-    public void testSelectEmployee() throws IOException {
+    public void testSelectCompany() throws IOException {
 
         // 1.创建SqlSessionFactory对象
         // ①声明Mybatis全局配置文件的路径
