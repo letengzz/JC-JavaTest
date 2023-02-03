@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hjc.demo.mapper.UserMapper">
+    <!-- 只添加用户名-->
+    <insert id="insertUserForName" parameterType="String">
+        <!-- insert into user(username)
+        values (#{username}) -->
+        insert into user(username)
+        values ('${username}')
+    </insert>
+    <insert id="insertUserByMap" parameterType="map">
+        insert into user(username, password, age)
+        values (#{username}, #{password}, #{age})
+    </insert>
+    <insert id="insertUserByParam">
+        insert into user(username, password, age)
+        values (#{username}, #{password}, #{age})
+    </insert>
+    <insert id="insertUserByBean" parameterType="com.hjc.demo.pojo.User">
+        insert into user(username, password, age)
+        values (#{username}, #{password}, #{age})
+    </insert>
+
+    <insert id="insertUserForId" keyProperty="id" useGeneratedKeys="true">
+        insert into user(username, password, age)
+        values (#{username}, #{password}, #{age})
+    </insert>
+    <insert id="insertUserByCustom" parameterType="com.hjc.demo.pojo.User">
+        <!-- 先使用selectKey标签定义主键，然后再定义SQL语句 -->
+        <selectKey keyProperty="id" resultType="Integer" order="AFTER">
+            select if(max(id) is null,1,max(id)+1) as newId from user
+        </selectKey>
+        insert into user(id,username,password,age) values (#{id},#{username},#{password},#{age})
+    </insert>
+    <update id="updateUserForName" parameterType="string">
+        update user
+        set password = '123123'
+        where username = #{username}
+    </update>
+    <update id="updateUserByMap" parameterType="map">
+        update user
+        set username = #{username},
+            password = #{password},
+            age      = #{age}
+        where id = #{id}
+    </update>
+    <update id="updateUserByParam">
+        update user
+        set username = #{username},
+            password = #{password},
+            age      = #{age}
+        where id = #{id}
+    </update>
+    <update id="updateUserByBean" parameterType="com.hjc.demo.pojo.User">
+        update user
+        set username = #{username},
+            password = #{password},
+            age      = #{age}
+        where id = #{id}
+    </update>
+    <delete id="deleteUserForName" parameterType="string">
+        delete
+        from user
+        where username = #{username}
+    </delete>
+    <delete id="deleteUserByMap">
+        delete
+        from user
+        where username = #{username}
+          and password = #{password}
+    </delete>
+    <delete id="deleteUserByParam">
+        delete
+        from user
+        where username = #{username}
+          and password = #{password}
+    </delete>
+    <delete id="deleteUserByBean">
+        delete
+        from user
+        where username = #{username}
+          and password = #{password}
+    </delete>
+    <select id="selectUserByBean" resultType="com.hjc.demo.pojo.User">
+        select id, username, password, age
+        from user
+        where username like concat('%', #{username}, '%')
+          and password like concat('%', #{password}, '%')
+    </select>
+    <select id="selectUserByParam" resultType="com.hjc.demo.pojo.User">
+        select id, username, password, age
+        from user
+        where username like concat('%', #{username}, '%')
+          and password like concat('%', #{password}, '%')
+    </select>
+    <select id="selectUserByMap" resultType="com.hjc.demo.pojo.User">
+        select id, username, password, age
+        from user
+        where username like concat('%', #{username}, '%')
+          and password like concat('%', #{password}, '%')
+    </select>
+    <select id="selectUserForName" resultType="com.hjc.demo.pojo.User">
+        select id, username, password, age
+        from user
+        where username like concat('%', #{username}, '%')
+    </select>
+
+</mapper>
