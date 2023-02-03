@@ -28,13 +28,13 @@ public class MyBatisTest {
 
         // 3.根据Mapper配置文件的名称空间+SQL语句的id找到具体的SQL语句
         // 格式是：名称空间.SQL语句的id
-        String statement = "com.hjc.demo.mapper.EmployeeMapper.selectEmployee";
+        String statement = "com.hjc.demo.mapper.CompanyMapper.selectCompany";
 
         // 要传入SQL语句的参数
-        Integer empId = 1;
+        Integer id = 1;
 
         // 执行SQL语句
-        Object result = session.selectOne(statement, empId);
+        Object result = session.selectOne(statement, id);
 
         System.out.println("查询结果:" + result);
 
