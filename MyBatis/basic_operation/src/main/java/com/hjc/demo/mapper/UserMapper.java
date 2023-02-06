@@ -12,6 +12,8 @@ import java.util.Map;
  * @author hjc
  */
 public interface UserMapper {
+    //返回值：int (获取受影响的行数)、void (不获取返回值)
+
     /**
      * 添加用户(只添加用户名)
      *

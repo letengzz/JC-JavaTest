@@ -15,6 +15,23 @@ import java.util.List;
 import java.util.Map;
 
 public class BasicTest {
+    /*
+     * Mybatis获取参数值的两种方式：${} 和 #{}  (尽量能用#{}不用${})
+     * ${}本质是字符串拼接
+     * #{}本质是占位符赋值
+     * Mybatis获取参数值的各种情况：
+     * 1.mapper接口方法的参数为单个的字面量类型
+     *  可以通过${}和#{}以任意的名称获取参数值，但是需要注意${}的单引号
+     * 2.mapper接口方法的参数为多个的字面量类型
+     *  Mybatis会将这些参数放在一个map集合中，以两种方式进行存储
+     *      1.以arg0，arg1...为键，以参数为值
+     *      2.以param1，param2...为键，以参数为值
+     *  通过#{}和${}以键的方式访问值即可
+     * 3.若mapper接口方法的参数有多个时，可以手动将这些参数放在一个map中存储
+     * 4.mapper接口方法的参数值为实体类类型的参数时，通过#{}和${}以属性的方式访问属性值即可。
+     * 5.使用@Param注解命名参数
+     *
+     */
     @Test
     public void testInsert() throws IOException {
         InputStream resource = Resources.getResourceAsStream("mybatis-config.xml");

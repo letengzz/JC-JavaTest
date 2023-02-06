@@ -3,6 +3,10 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hjc.demo.mapper.UserMapper">
+    <!-- mybatis如果检测有多个参数的时候，会自动把这些参数放入map集合中
+        会以两种方式存取数据：
+            - 以arg0 arg1为键 以参数为值
+            - 以param1 param2为键 以参数为值-->
     <!-- 只添加用户名-->
     <insert id="insertUserForName" parameterType="String">
         <!-- insert into user(username)
@@ -23,6 +27,9 @@
         values (#{username}, #{password}, #{age})
     </insert>
 
+    <!-- 在Mybatis实现添加功能的时候设置好了 把自动递增的主键来放到传输过来的user对象的id属性中，当执行添加操作之后，user对象的id就有值了 -->
+    <!-- useGeneratedKeys：设置当前标签中的sql使用了自增的主键
+         keyProperty：将自增的主键的值赋值传输到映射文件中参数的某个属性-->
     <insert id="insertUserForId" keyProperty="id" useGeneratedKeys="true">
         insert into user(username, password, age)
         values (#{username}, #{password}, #{age})
@@ -83,6 +90,8 @@
         where username = #{username}
           and password = #{password}
     </delete>
+    <!-- resultType设置默认的映射关系、resultMap设置自定义的映射关系 -->
+    <!-- 如果字段名和属性名不一致或多对一、一对多的情况下才需要用到resultMap，其他时候使用resultType即可 -->
     <select id="selectUserByBean" resultType="com.hjc.demo.pojo.User">
         select id, username, password, age
         from user
